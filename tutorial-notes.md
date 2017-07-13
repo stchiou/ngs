@@ -17,13 +17,15 @@ $ wget <link copied from the website>
   ```
    + `cut` removes sections from each line of files the `-f` flag indicates the fields that being selected.
    + The `|` is called pipe. It passes the output of a previous command on STDIN (the standard input stream) to the input of the next one, or to the shell.
-   + `xargs` builds and execute command lines from standard input. In this case, it receives the result of the `cut` command from standard out, converts them into separated <b> arguments </b> for the `wget` command.
+   + `xargs` builds and execute command lines from standard input. In this case, it receives the result of the `cut` command from standard out, converts them into separated **arguments** for the `wget` command.
 
 + Instruction for downloading from SRA can be found here:
 https://www.ncbi.nlm.nih.gov/sra/docs/sradownload/#ui-ncbiinpagenav-heading-7
 
 ### FASTQ Format
-+ A paired-end sequencing run will always have <b>two</b> FASTQ files--one for the forward reads, one for the backward reads.
++ A paired-end sequencing run will always have **two** FASTQ files--one for the forward reads, one for the backward reads.
+
+#### Sequence Identifier
 + The first line of each FASTQ read snippet contains the read ID.
  + Format for Illumina  < version 1.8  
  `@<machine_id>:<lane>:<title>:<x_coord>:<y_coord>#<index>/<read_#>`
@@ -37,6 +39,12 @@ GCAGCATCGGCCTTTTGCTTCTCTTTGAAGGCAATGTCTTCAGGATCTAAG`
 `@@;BDDEFGHHHHIIIGBHHEHCCHGCGIGGHIGHGIGIIGHIIAHIIIGI
 @ERR459145.3 DHKW5DQ1:219:D0PT7ACXX:2:1101:3245:2163/1
 TGCATCTGCATGATCTCAACCATGTCTAAATCCAAATTGTCAGCCTGCGCG`
+
+#### Base Call Quality Scores
++ The deduction of nucleotide sequences from the images acquired during sequencing is referred to as **base calling**.
++ FASTQ files store the DNA sequence of each read with a position-specific quality score that represents the error probability.
+
+### Quality control
 
 ## Read Alignment
 ## Read Quantification
