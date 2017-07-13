@@ -1,5 +1,7 @@
 # NGS Tutorial
 ## Read Data
+### Download sequence
++ The sequence files can be downloaded from public sequence  such as the Sequence Read Archive (SRA) of the National Center for Biotechnology Information (NCBI), the European Nucleotide Archive (ENA) of the European Bioinformatics Institute (EBI), and the DNA Databank of Japan (DDBJ). 
 ### FASTQ Format
 + A paired-end sequencing run will always have <b>two</b> FASTQ files--one for the forward reads, one for the backward reads.
 + The first line of each FASTQ read snippet contains the read ID.
