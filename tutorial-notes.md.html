@@ -513,11 +513,8 @@ pre.editor-colors .fold-marker:after {
 <ul>
 <li>The first line of each FASTQ read snippet contains the read ID.<ul>
 <li>Format for Illumina  &lt; version 1.8<br><code>@&lt;machine_id&gt;:&lt;lane&gt;:&lt;title&gt;:&lt;x_coord&gt;:&lt;y_coord&gt;#&lt;index&gt;/&lt;read_#&gt;</code></li>
-<li>Format for Illumina <u>></u> version 1.8<br><code>@&lt;machine_id&gt;:&lt;run number&gt;:&lt;flowcell ID&gt;:&lt;lane&gt;:&lt;tile&gt;:&lt;x-pos&gt;:&lt;y-pos&gt;&lt;read&gt;:&lt;is filtered&gt;:&lt;control number&gt;:&lt;index sequence&gt;</code><br>For example:<br><code>@7&lt;DBADDDBH?DHHI@DH&gt;HHHEGHIIIGGIFFGIBFAAGAFHA&#39;5?B@D
-@ERR459145.2 DHKW5DQ1:219:D0PT7ACXX:2:1101:2652:2237/1
-GCAGCATCGGCCTTTTGCTTCTCTTTGAAGGCAATGTCTTCAGGATCTAAG</code><br><code>+</code><br><code>@@;BDDEFGHHHHIIIGBHHEHCCHGCGIGGHIGHGIGIIGHIIAHIIIGI
-@ERR459145.3 DHKW5DQ1:219:D0PT7ACXX:2:1101:3245:2163/1
-TGCATCTGCATGATCTCAACCATGTCTAAATCCAAATTGTCAGCCTGCGCG</code></li>
+<li>Format for Illumina <u>></u> version 1.8<br><code>@&lt;machine_id&gt;:&lt;run number&gt;:&lt;flowcell ID&gt;:&lt;lane&gt;:&lt;tile&gt;:&lt;x-pos&gt;:&lt;y-pos&gt;&lt;read&gt;:&lt;is filtered&gt;:&lt;control number&gt;:&lt;index sequence&gt;</code><br>For example:<br><code>@7&lt;DBADDDBH?DHHI@DH&gt;HHHEGHIIIGGIFFGIBFAAGAFHA&#39;5?B@D</code>
+<code>@ERR459145.2 DHKW5DQ1:219:D0PT7ACXX:2:1101:2652:2237/1</code><br><code>GCAGCATCGGCCTTTTGCTTCTCTTTGAAGGCAATGTCTTCAGGATCTAAG</code><br><code>+</code><br><code>@@;BDDEFGHHHHIIIGBHHEHCCHGCGIGGHIGHGIGIIGHIIAHIIIGI</code><br><code>@ERR459145.3 DHKW5DQ1:219:D0PT7ACXX:2:1101:3245:2163/1</code><br><code>TGCATCTGCATGATCTCAACCATGTCTAAATCCAAATTGTCAGCCTGCGCG</code></li>
 </ul>
 </li>
 </ul>
@@ -525,8 +522,96 @@ TGCATCTGCATGATCTCAACCATGTCTAAATCCAAATTGTCAGCCTGCGCG</code></li>
 <ul>
 <li>The deduction of nucleotide sequences from the images acquired during sequencing is referred to as <strong>base calling</strong>.</li>
 <li>FASTQ files store the DNA sequence of each read with a position-specific quality score that represents the error probability.</li>
+<li>The <strong>Phred score, Q</strong>, is proportional to the probability <em>p</em> that a base call is incorrect.
+<strong>Q=-10*<em>log</em><sub>10</sub>(<em>p</em>)</strong></li>
+<li>Phred scores are typically represented as ASCII characters.</li>
+<li>In the Illumina platform, the ASCII offset for version &lt; 1.8 is 64, for 1.8+ is 33 and can be converted through the <code>sed</code> command as following:<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>$&nbsp;sed&nbsp;-e&nbsp;&#39;4~4y/@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi/!&quot;#$%&amp;&#39;()*+,-.\/0123456789:;&nbsp;&lt;=&gt;?@ABCDEFGHIJ/&#39;&nbsp;originalFile.fastq</span></span></span></div></pre><ul>
+<li><code>sed</code> is a stream editor for filterning and transforming text.</li>
+<li>The code above executes (<strong>-e</strong> flag) the transliteration (<strong>y</strong> command) on every fourth line (<strong>4~4</strong>) of the file originalFile.fastq. to change any of the characters in the following list<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>!&quot;#$%&amp;&#39;()*+,-.\/0123456789:;&nbsp;&lt;=&gt;?@ABCDEFGHIJ</span></span></span></div></pre>to its corresponding in the following list<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi</span></span></span></div></pre><h3 id="quality-control">Quality control</h3>
+</li>
 </ul>
-<h3 id="quality-control">Quality control</h3>
+</li>
+</ul>
+<h4 id="differential-gene-expression-analysis-workflow">Differential Gene Expression Analysis Workflow</h4>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Input Files</th>
+<th>Process</th>
+<th>Required Tools</th>
+<th>Output</th>
+<th>Quality Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>.tif</td>
+<td>Base calling &amp; demultiplexing</td>
+<td>Bustard/RTA/OLB, CASAVA</td>
+<td>Raw reads</td>
+<td>FASTQC</td>
+</tr>
+<tr>
+<td>2</td>
+<td>.fastq</td>
+<td>Mapping</td>
+<td>STAR</td>
+<td>Aligned reads</td>
+<td>RSeQc</td>
+</tr>
+<tr>
+<td>3</td>
+<td>.sam/.bam</td>
+<td>Counting</td>
+<td>featureCounts</td>
+<td>Read count table</td>
+<td>Descriptive plots</td>
+</tr>
+<tr>
+<td>4</td>
+<td>.txt</td>
+<td>Normalizing</td>
+<td>DESeq2, edgeR</td>
+<td>Normalized read count table</td>
+<td>Descriptive plots</td>
+</tr>
+<tr>
+<td>5</td>
+<td>.Robj</td>
+<td>DE test &amp; multiple testing correction</td>
+<td>DESeq2, edgeR, limma</td>
+<td>List of fold changes &amp; statistical values</td>
+<td>Descriptive plots</td>
+</tr>
+<tr>
+<td>6</td>
+<td>.Robj, .txt</td>
+<td>Filtering</td>
+<td>customized scripts</td>
+<td>downsteam analyses on DE genes</td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>A poor sequence run will be most likely caused by<ul>
+<li>PCR duplicates</li>
+<li>adapter contamination</li>
+<li>rRNA and tRNA reads</li>
+<li>unmappable reads</li>
+</ul>
+</li>
+</ul>
+<h5 id="fastqc">FASTQC</h5>
+<ul>
+<li>FASTQC is a java app that can be downloaded from <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip">http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip</a></li>
+<li>Once downloaded, installing FASTQC is simply to unzip the archive and change mode of the <code>fasqc</code> wrapper so that the file inside the folder becomes executable.</li>
+<li>The following command is used to run FASTQC:<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>$&nbsp;fastqc&nbsp;ERR458493.fastq.gz&nbsp;--extract</span></span></span></div></pre></li>
+<li>The results of FASTQC are stored in a folder that contains the sample name.<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>[chious@ehshpclp131/jobs&nbsp;rna-seq-lab]$&nbsp;ls&nbsp;ERR458493_fastqc&nbsp;-l</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>total&nbsp;672</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>-rw-r--r--&nbsp;1&nbsp;chious&nbsp;others&nbsp;138484&nbsp;Jul&nbsp;13&nbsp;16:48&nbsp;fastqc_data.txt</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>-rw-r--r--&nbsp;1&nbsp;chious&nbsp;others&nbsp;&nbsp;&nbsp;9716&nbsp;Jul&nbsp;13&nbsp;16:48&nbsp;fastqc.fo</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>-rw-r--r--&nbsp;1&nbsp;chious&nbsp;others&nbsp;369158&nbsp;Jul&nbsp;13&nbsp;16:48&nbsp;fastqc_report.html</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>drwxr-xr-x&nbsp;2&nbsp;chious&nbsp;others&nbsp;&nbsp;32768&nbsp;Jul&nbsp;13&nbsp;16:48&nbsp;Icons</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>drwxr-xr-x&nbsp;2&nbsp;chious&nbsp;others&nbsp;&nbsp;32768&nbsp;Jul&nbsp;13&nbsp;16:48&nbsp;Images</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>-rw-r--r--&nbsp;1&nbsp;chious&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;566&nbsp;Jul&nbsp;13&nbsp;16:48&nbsp;summary.txt</span></span></span></div></pre></li>
+<li>The <code>summary.txt</code></li>
+</ul>
 <h2 id="read-alignment">Read Alignment</h2>
 <h2 id="read-quantification">Read Quantification</h2>
 <h2 id="normalizing-and-transforming-read-counts">Normalizing and Transforming Read Counts</h2>
