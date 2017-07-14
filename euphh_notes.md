@@ -2,61 +2,31 @@
 ## 7/13/2017
 ### Create EUPHH folder
 + Created EUPHH_files folder to hold results from analysis and codes.
-+ FASQ files were uploaded to jobs  
++ Uploaded FASTQ files to job under `/home/chious/gatk/working/rna-seq-lab/euphh` folder  
   - [ ] CAPY3ANXX  
   - [ ] CAR8NANXX  
   - [ ] CARBYANXX  
   - [x] CARDCANXX  
-  - [ ] CARR2ANXX  
-  - [ ] P001  
-  - [ ] P002  
-  - [ ] P003  
-  - [ ] P004  
-  - [ ] P006
-  - [ ] P007
-  - [ ] P008  
-  - [ ] P009  
-  - [ ] P010  
-  - [ ] P011  
-  - [ ] P012  
-  - [ ] P013  
-  - [ ] P014  
-  - [ ] P015  
-  - [ ] P016  
-  - [ ] P017  
-  - [ ] P018  
-  - [ ] P019  
-  - [ ] P021  
-  - [ ] P022  
-  - [ ] P024  
-  - [ ] P025
-  - [ ] P027  
-  - [ ] P028  
-  - [ ] P029  
-  - [ ] P031
-  - [ ] P033  
-  - [ ] P034  
-  - [ ] P035  
-  - [ ] P036  
-  - [ ] P038
-  - [ ] P039  
-  - [ ] P040
-  - [ ] P041  
-  - [ ] P042  
-  - [ ] P043  
-  - [ ] P044  
-  - [ ] P045  
-  - [ ] P046  
-  - [ ] P047  
-  - [ ] P048  
-  - [ ] P052  
-  - [ ] P053  
-  - [ ] P054
-  - [ ] P055
-  - [ ] P056  
-  - [ ] P118
-  - [ ] P119  
-  - [ ] P120  
-  - [ ] P121  
-  - [ ] P122  
-  - [ ] P123  
+  - [x] CARR2ANXX  
+  - [x] P001  
+  - [x] P002  
+  - [x] P003  
+  - [x] P004  
+  - [x] P006
+  - [x] P007
+  - [x] P008  
+  - [x] P010  
+  - [x] P011  
+  - [x] P012  
+  - [x] P013  
+  - [x] P014
+  - [x] P015
+  - [x] P016
+  - [x] P017
+  - [x] P018
+  - [x] P019
+  - [x] P02*
+  - [x] P03*
+  - [x] P04*
+  - [ ] P05*
+  - [ ] P1*

@@ -1,4 +1,11 @@
 # NGS Tutorial Notes
+## Introduction
++ The Lander-Waterman equation is used to described the relationship between coverage, reads, and the genome size. The formula is:
+
+```tex
+\frac{readlength*number of reads}{haploid genome length}
+```
+
 ## Read Data
 ### Download Sequences
 + The sequence files can be downloaded from public sequence  such as the Sequence Read Archive (SRA) of the National Center for Biotechnology Information (NCBI), the European Nucleotide Archive (ENA) of the European Bioinformatics Institute (EBI), and the DNA Databank of Japan (DDBJ).
