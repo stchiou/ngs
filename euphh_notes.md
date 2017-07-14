@@ -1,0 +1,62 @@
+# EUPHH project
+## 7/13/2017
+### Create EUPHH folder
++ Created EUPHH_files folder to hold results from analysis and codes.
++ FASQ files were uploaded to jobs  
+  - [ ] CAPY3ANXX  
+  - [ ] CAR8NANXX  
+  - [ ] CARBYANXX  
+  - [x] CARDCANXX  
+  - [ ] CARR2ANXX  
+  - [ ] P001  
+  - [ ] P002  
+  - [ ] P003  
+  - [ ] P004  
+  - [ ] P006
+  - [ ] P007
+  - [ ] P008  
+  - [ ] P009  
+  - [ ] P010  
+  - [ ] P011  
+  - [ ] P012  
+  - [ ] P013  
+  - [ ] P014  
+  - [ ] P015  
+  - [ ] P016  
+  - [ ] P017  
+  - [ ] P018  
+  - [ ] P019  
+  - [ ] P021  
+  - [ ] P022  
+  - [ ] P024  
+  - [ ] P025
+  - [ ] P027  
+  - [ ] P028  
+  - [ ] P029  
+  - [ ] P031
+  - [ ] P033  
+  - [ ] P034  
+  - [ ] P035  
+  - [ ] P036  
+  - [ ] P038
+  - [ ] P039  
+  - [ ] P040
+  - [ ] P041  
+  - [ ] P042  
+  - [ ] P043  
+  - [ ] P044  
+  - [ ] P045  
+  - [ ] P046  
+  - [ ] P047  
+  - [ ] P048  
+  - [ ] P052  
+  - [ ] P053  
+  - [ ] P054
+  - [ ] P055
+  - [ ] P056  
+  - [ ] P118
+  - [ ] P119  
+  - [ ] P120  
+  - [ ] P121  
+  - [ ] P122  
+  - [ ] P123  
